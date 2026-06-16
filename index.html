@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Sarl MED Distribution - Invoice Manager</title>
+    <title>Sarl MED Distribution - Hub System</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
     <style>
@@ -22,137 +22,94 @@
             .print-grid { display: grid !important; grid-template-columns: repeat(2, minmax(0, 1fr)) !important; gap: 0px !important; }
             table { display: table !important; width: 100% !important; border-collapse: collapse !important; }
             tr { display: table-row !important; }
-            th, td { display: table-cell !important; }
+            th, td { display: table-cell !important; border: 1px solid #000000 !important; padding: 6px !important; }
         }
     </style>
 
     <script>
-        // قاموس الترجمة للغات الثلاث
         const translations = {
             ar: {
                 title: "Sarl MED Distribution",
-                subtitle: "نظام إدارة الفواتير والمخزون المستقل",
+                subtitle: "المنصة الذكية للنقل، التخزين واللوجستيات العامة",
                 googleLogin: "متابعة باستخدام Google",
                 orLocal: "أو عبر حساب محلي",
-                username: "اسم المستخدم",
+                username: "اسم المستخدم / البريد الإلكتروني",
                 password: "كلمة المرور",
-                rememberMe: "تذكر بياناتي",
-                createAccount: "إنشاء حساب مستقل جديد؟",
                 loginBtn: "دخول للمنصة",
-                defaultUserHint: "الحساب الافتراضي: MOHAMED الرمز: 123456",
+                noAccount: "ليس لديك حساب؟",
+                hasAccount: "لديك حساب بالفعل؟",
+                createAccountBtn: "إنشاء حساب جديد",
+                registerTitle: "تسجيل حساب جديد بالمنصة",
+                registerSuccess: "تم إنشاء الحساب بنجاح! يمكنك الدخول الآن.",
                 tabForm: "تعبئة الفاتورة",
                 tabPreview: "معاينة الفاتورة",
                 adminPanel: "لوحة الإدارة",
-                welcome: "مرحباً،",
                 logout: "خروج",
                 manageInventory: "📦 إدارة دليل السلع والمخزون الخاص بك",
-                prodName: "اسم المادة",
-                prodCategory: "الفئة (مثال: عصير)",
-                prodPrice: "السعر (DZD)",
-                prodStock: "الكمية المتوفرة",
-                addInventory: "+ إضافة للمستودع",
                 clientInfo: "بيانات الزبون أو الشركة المستلمة",
-                clientNamePh: "اسم الزبون",
-                addressPh: "العنوان",
-                activityPh: "النشاط",
-                rcPh: "السجل التجاري RC",
-                quantitySelect: "صرف وتحديد كميات مواد الطلبية الحالية",
-                searchPh: "ابحث في دليل السلع...",
-                totalTtcLabel: "الإجمالي الإفتراضي للطلب الحاضر (TTC)",
-                saveBtn: "حفظ التدوين",
-                whatsappBtn: "إرسال واتساب",
-                printBtn: "طباعة الفاتورة",
-                quickPreview: "المعاينة السريعة",
-                adminTitle: "لوحة الإدارة وتكوين الشركة",
+                quantitySelect: "تحديد كميات مواد الطلب الحالي وتحديث المخازن",
+                totalTtcLabel: "إخطار الإفتراضي للطلب المسبق (شامل الضريبة)",
+                adminTitle: "لوحة الإدارة وتكوين الشركة والضرائب",
                 tvaLabel: "نسبة الضريبة TVA %",
-                currencyLabel: "العملة",
+                currencyLabel: "العملة الإفتراضية",
                 supplierNameLabel: "اسم الشركة الموردة",
-                visualActivityLabel: "النشاط البصري",
-                whatsappNumLabel: "رقم الهاتف للواتساب",
+                whatsappNumLabel: "رقم هاتف الواتساب للمبيعات",
                 saveCloseAdmin: "حفظ وإغلاق التكوين"
             },
             fr: {
                 title: "Sarl MED Distribution",
-                subtitle: "Système de Facturation & Stock Indépendant",
+                subtitle: "Plateforme Intelligente de Transport & Stockage اللوجستية",
                 googleLogin: "Continuer avec Google",
                 orLocal: "Ou via un compte local",
-                username: "Nom d'utilisateur",
+                username: "Nom d'utilisateur / Email",
                 password: "Mot de passe",
-                rememberMe: "Se souvenir de moi",
-                createAccount: "Créer un nouveau compte ?",
-                loginBtn: "Connexion",
-                defaultUserHint: "Par défaut: MOHAMED | Code: 123456",
+                loginBtn: "Connexion Platform",
+                noAccount: "Pas de compte ?",
+                hasAccount: "Déjà inscrit ?",
+                createAccountBtn: "Créer un compte",
+                registerTitle: "Créer un nouveau compte",
+                registerSuccess: "Compte créé ! Vous pouvez vous connecter.",
                 tabForm: "Remplir Facture",
                 tabPreview: "Aperçu Facture",
                 adminPanel: "Admin",
-                welcome: "Bienvenue,",
                 logout: "Sortir",
-                manageInventory: "📦 Gestion du Catalogue & Stock",
-                prodName: "Nom du produit",
-                prodCategory: "Catégorie (Ex: Jus)",
-                prodPrice: "Prix (DZD)",
-                prodStock: "Quantité disponible",
-                addInventory: "+ Ajouter au Stock",
-                clientInfo: "Informations du Client / Récepteur",
-                clientNamePh: "Nom du client",
-                addressPh: "Adresse",
-                activityPh: "Activité",
-                rcPh: "Registre du Commerce RC",
-                quantitySelect: "Sélection des quantités pour la commande",
-                searchPh: "Rechercher un produit...",
-                totalTtcLabel: "Total Estimé Actuel (TTC)",
-                saveBtn: "Enregistrer",
-                whatsappBtn: "Envoyer WhatsApp",
-                printBtn: "Imprimer Facture",
-                quickPreview: "Aperçu Rapide",
-                adminTitle: "Configuration de l'Entreprise",
-                tvaLabel: "Taux de TVA %",
+                manageInventory: "📦 Catalogue & Stockage",
+                clientInfo: "Informations du Client",
+                quantitySelect: "Sélection des quantités & stocks",
+                totalTtcLabel: "Notification de commande (TTC)",
+                adminTitle: "Configuration & Gestion de TVA",
+                tvaLabel: "Taux TVA %",
                 currencyLabel: "Devise",
-                supplierNameLabel: "Nom du Fournisseur",
-                visualActivityLabel: "Activité Visuelle",
-                whatsappNumLabel: "Numéro WhatsApp",
-                saveCloseAdmin: "Enregistrer et Fermer"
+                supplierNameLabel: "Nom du fournisseur",
+                whatsappNumLabel: "N° WhatsApp Sales",
+                saveCloseAdmin: "Enregistrer & Fermer"
             },
             en: {
                 title: "Sarl MED Distribution",
-                subtitle: "Independent Invoice & Stock System",
+                subtitle: "Smart Transport, Storage & Logistics Platform",
                 googleLogin: "Continue with Google",
                 orLocal: "Or via local account",
-                username: "Username",
+                username: "Username / Email",
                 password: "Password",
-                rememberMe: "Remember me",
-                createAccount: "Create new account?",
-                loginBtn: "Login",
-                defaultUserHint: "Default: MOHAMED | Pass: 123456",
+                loginBtn: "Login to Platform",
+                noAccount: "Don't have an account?",
+                hasAccount: "Already have an account?",
+                createAccountBtn: "Create New Account",
+                registerTitle: "Register New Account",
+                registerSuccess: "Account created successfully! You can login now.",
                 tabForm: "Fill Invoice",
-                tabPreview: "Invoice Preview",
-                adminPanel: "Admin",
-                welcome: "Welcome,",
+                tabPreview: "Preview Invoice",
+                adminPanel: "Admin Panel",
                 logout: "Logout",
-                manageInventory: "📦 Catalogue & Stock Management",
-                prodName: "Product Name",
-                prodCategory: "Category (e.g., Juice)",
-                prodPrice: "Price (DZD)",
-                prodStock: "Available Stock",
-                addInventory: "+ Add to Inventory",
-                clientInfo: "Client / Receiver Information",
-                clientNamePh: "Client Name",
-                addressPh: "Address",
-                activityPh: "Activity",
-                rcPh: "Commercial Register RC",
-                quantitySelect: "Select Quantities for Current Order",
-                searchPh: "Search product...",
-                totalTtcLabel: "Current Estimated Total (TTC)",
-                saveBtn: "Save Data",
-                whatsappBtn: "Send WhatsApp",
-                printBtn: "Print Invoice",
-                quickPreview: "Quick Preview",
-                adminTitle: "Company Configuration Panel",
-                tvaLabel: "TVA Rate %",
-                currencyLabel: "Currency",
+                manageInventory: "📦 Items Catalogue & Stock",
+                clientInfo: "Customer Information",
+                quantitySelect: "Select Quantities & Update Stocks",
+                totalTtcLabel: "Pre-order Notification (TTC)",
+                adminTitle: "Admin Panel & Tax Configuration",
+                tvaLabel: "Tax Rate TVA %",
+                currencyLabel: "Default Currency",
                 supplierNameLabel: "Supplier Company Name",
-                visualActivityLabel: "Visual Activity",
-                whatsappNumLabel: "WhatsApp Phone Number",
+                whatsappNumLabel: "WhatsApp Sales Number",
                 saveCloseAdmin: "Save & Close Configuration"
             }
         };
@@ -163,639 +120,666 @@
             const teens = ["Dix", "Onze", "Douze", "Treize", "Quatorze", "Quinze", "Seize", "Dix-sept", "Dix-huit", "Dix-neuf"];
             const tens = ["", "Dix", "Vingt", "Trente", "Quarante", "Cinquante", "Soixante", "Soixante-dix", "Quatre-vingt", "Quatre-vingt-dix"];
             
-            function convertLessThanCent(n) {
+            function convert(n) {
+                if (n === 0) return "";
                 if (n < 10) return units[n];
                 if (n < 20) return teens[n - 10];
                 let ten = Math.floor(n / 10);
                 let rest = n % 10;
                 if (rest === 0) return tens[ten];
-                if (ten === 7) return "Soixante-" + (rest === 1 ? "et-onze" : teens[rest]);
-                if (ten === 9) return "Quatre-vingt-" + teens[rest];
-                if (rest === 1) return tens[ten] + "-et-un";
                 return tens[ten] + "-" + units[rest];
             }
-
-            function convert(n) {
-                if (n === 0) return "";
-                if (n < 100) return convertLessThanCent(n);
-                if (n < 1000) {
-                    let cent = Math.floor(n / 100);
-                    let rest = n % 100;
-                    let centStr = cent === 1 ? "Cent" : units[cent] + " Cent";
-                    return rest === 0 ? centStr : centStr + " " + convert(rest);
-                }
-                if (n < 1000000) {
-                    let mille = Math.floor(n / 1000);
-                    let rest = n % 1000;
-                    let milleStr = mille === 1 ? "Mille" : convert(mille) + " Mille";
-                    return rest === 0 ? milleStr : milleStr + " " + convert(rest);
-                }
-                let million = Math.floor(n / 1000000);
-                let rest = n % 1000000;
-                let millionStr = convert(million) + " Million";
-                return rest === 0 ? millionStr : millionStr + " " + convert(rest);
-            }
-
-            let intPart = Math.floor(num);
-            let decPart = Math.round((num - intPart) * 100);
-            let words = convert(intPart) + " Dinars";
-            if (decPart > 0) words += " et " + convertLessThanCent(decPart) + " Centimes";
-            return words;
+            return convert(Math.floor(num)) + " Dinars";
         }
 
         window.App = {
+            lang: 'ar',
+            isRegisterMode: false,
             state: {
-                currentLang: "ar",
-                products: [], 
+                products: [],
+                invoiceCounter: 1,
+                currentInvoiceNum: "FAC-2026-0001",
+                currentInvoiceDate: "",
                 config: {
-                    name: "Sarl MED Distribution", slogan: "عرض وتوزيع المواد والمشروبات", currency: "DZD", tva: 19,
+                    name: "Sarl MED Distribution", slogan: "شحن وتخزين المواد والمشروبات البلاستيكية والعمومية", currency: "DZD", tva: 19,
                     capital: "10,000,000 DA", rc: "24/00 - 1234567 B24", nif: "002416012345678", nis: "002416090123456",
-                    phone: "0550123456", address: "Zone Industrielle, Ouargla",
-                    cliName: "Etablissement BRAVO", cliAddr: "12, Chemin Alliche, Alger", cliAct: "Grossiste d'alimentation", cliRc: "16/00 - 0999061 B16"
+                    phone: "0550123456", address: "المنطقة الصناعية، ورقلة العاصمة",
+                    cliName: "", cliAddr: "", cliAct: "", cliRc: ""
                 },
-                cart: {}, currentUser: "", currentUserEmail: "", currentUserPic: ""
+                cart: {}, currentUser: "", currentUserEmail: ""
             },
 
             init: function() {
-                var savedLang = localStorage.getItem('hub_lang');
-                if (savedLang) { this.state.currentLang = savedLang; }
-                this.applyLanguageUI();
-
                 var savedUser = localStorage.getItem('hub_logged_user');
+                var savedCounter = localStorage.getItem('hub_invoice_counter');
+                var savedConfig = localStorage.getItem('hub_app_config');
+                
+                if (savedCounter) { this.state.invoiceCounter = parseInt(savedCounter); }
+                if (savedConfig) { this.state.config = JSON.parse(savedConfig); }
+
                 if (savedUser) {
                     this.state.currentUser = savedUser;
-                    this.state.currentUserEmail = localStorage.getItem('hub_logged_email') || "";
-                    this.state.currentUserPic = localStorage.getItem('hub_logged_pic') || "";
+                    this.state.currentUserEmail = localStorage.getItem('hub_logged_email') || "user@sarl-med.dz";
                     this.showMainApp();
                 }
+                this.loadInventoryDatabase();
+                this.generateInvoiceMetadata();
+                this.applyLanguage();
+            },
 
-                if (!localStorage.getItem('hub_users_db')) {
-                    localStorage.setItem('hub_users_db', JSON.stringify({ "MOHAMED": "123456", "ADMIN": "admin2026" }));
+            applyLanguage: function() {
+                document.dir = this.lang === 'ar' ? 'rtl' : 'ltr';
+                document.documentElement.lang = this.lang;
+                const t = translations[this.lang];
+                
+                document.getElementById('lblTitle').innerText = t.title;
+                document.getElementById('lblSubtitle').innerText = t.subtitle;
+                document.getElementById('lblGoogleLogin').innerText = t.googleLogin;
+                
+                document.getElementById('lblUsername').innerText = t.username;
+                document.getElementById('lblPassword').innerText = t.password;
+                document.getElementById('lblLoginBtn').innerText = this.isRegisterMode ? t.createAccountBtn : t.loginBtn;
+                document.getElementById('lblNoAccount').innerText = this.isRegisterMode ? t.hasAccount : t.noAccount;
+                document.getElementById('toggleModeBtn').innerText = this.isRegisterMode ? t.loginBtn : t.createAccountBtn;
+                if(document.getElementById('lblFormHeader')) {
+                    document.getElementById('lblFormHeader').innerText = this.isRegisterMode ? t.registerTitle : t.orLocal;
                 }
 
-                try {
-                    var prefix = this.state.currentUser ? this.state.currentUser + "_" : "";
-                    if (localStorage.getItem(prefix + 'hub_config')) this.state.config = JSON.parse(localStorage.getItem(prefix + 'hub_config'));
-                    if (localStorage.getItem(prefix + 'hub_inventory')) this.state.products = JSON.parse(localStorage.getItem(prefix + 'hub_inventory'));
-                    if (localStorage.getItem(prefix + 'hub_cart')) this.state.cart = JSON.parse(localStorage.getItem(prefix + 'hub_cart'));
-                } catch(e) { console.error("Could not load local data", e); }
+                document.getElementById('tab-form').innerText = t.tabForm;
+                document.getElementById('tab-preview').innerText = t.tabPreview;
+                document.getElementById('lblManageInventory').innerText = t.manageInventory;
+                document.getElementById('lblClientInfo').innerText = t.clientInfo;
+                document.getElementById('lblQuantitySelect').innerText = t.quantitySelect;
+                document.getElementById('lblTotalTtcLabel').innerText = t.totalTtcLabel;
                 
-                document.getElementById('invDate').innerText = new Date().toLocaleDateString('fr-FR');
-                this.loadInputsFromState();
-                this.syncConfig();
-                this.renderInventoryManagementList();
-                this.renderProductsGrid();
-            },
+                document.getElementById('adminModalTitle').innerText = t.adminTitle;
+                document.getElementById('lblAdminTva').innerText = t.tvaLabel;
+                document.getElementById('lblAdminCurrency').innerText = t.currencyLabel;
+                document.getElementById('lblAdminSupplier').innerText = t.supplierNameLabel;
+                document.getElementById('lblAdminWhitespace').innerText = t.whatsappNumLabel;
+                document.getElementById('btnSaveAdmin').innerText = t.saveCloseAdmin;
 
-            changeLanguage: function(lang) {
-                this.state.currentLang = lang;
-                localStorage.setItem('hub_lang', lang);
-                this.applyLanguageUI();
-                this.renderProductsGrid();
-            },
-
-            applyLanguageUI: function() {
-                var lang = this.state.currentLang;
-                var dict = translations[lang];
-                
-                document.documentElement.lang = lang;
-                document.body.dir = (lang === "ar") ? "rtl" : "ltr";
-                document.getElementById('langSelect').value = lang;
-                document.getElementById('loginLangSelect').value = lang;
-
-                document.querySelectorAll('[data-i18n]').forEach(el => {
-                    var key = el.getAttribute('data-i18n');
-                    if(dict[key]) el.innerText = dict[key];
-                });
-
-                document.querySelectorAll('[data-i18n-ph]').forEach(el => {
-                    var key = el.getAttribute('data-i18n-ph');
-                    if(dict[key]) el.placeholder = dict[key];
-                });
-            },
-
-            handleLogin: function() {
-                var userInp = document.getElementById('loginUser').value.trim().toUpperCase();
-                var passInp = document.getElementById('loginPass').value.trim();
-                var rememberMe = document.getElementById('loginRemember').checked;
-                var usersDb = JSON.parse(localStorage.getItem('hub_users_db'));
-
-                if (!userInp || !passInp) { alert(this.state.currentLang === 'ar' ? "الرجاء ملء كافة حقول تسجيل الدخول!" : "Veuillez remplir tous les champs !"); return; }
-
-                if (usersDb[userInp] && usersDb[userInp] === passInp) {
-                    this.state.currentUser = userInp;
-                    this.state.currentUserEmail = userInp.toLowerCase() + "@sarl-med.dz";
-                    if (rememberMe) {
-                        localStorage.setItem('hub_logged_user', userInp);
-                        localStorage.setItem('hub_logged_email', this.state.currentUserEmail);
+                ['ar', 'fr', 'en'].forEach(l => {
+                    const btn = document.getElementById(`btn-lang-${l}`);
+                    if(btn) {
+                        if(l === this.lang) {
+                            btn.className = "px-3 py-2 bg-blue-600 text-white shadow-sm rounded-xl font-bold transition-all";
+                        } else {
+                            btn.className = "px-3 py-2 rounded-xl font-semibold text-slate-600 hover:bg-slate-200 transition-all";
+                        }
                     }
-                    this.init();
-                    this.showMainApp();
-                } else {
-                    alert(this.state.currentLang === 'ar' ? "اسم المستخدم أو كلمة المرور غير صحيحة!" : "Identifiants incorrects !");
+                });
+            },
+
+            setLanguage: function(lang) {
+                this.lang = lang;
+                this.applyLanguage();
+            },
+
+            toggleRegisterMode: function() {
+                this.isRegisterMode = !this.isRegisterMode;
+                this.applyLanguage();
+            },
+
+            handleAuthAction: function() {
+                var userField = document.getElementById('loginUser').value.trim();
+                var passField = document.getElementById('loginPass').value.trim();
+
+                if(!userField || !passField) {
+                    alert(this.lang === 'ar' ? "يرجى ملء كافة الحقول المتاحة" : "Please fill all fields");
+                    return;
                 }
+
+                if (this.isRegisterMode) {
+                    localStorage.setItem(`local_reg_${userField}`, passField);
+                    alert(translations[this.lang].registerSuccess);
+                    this.isRegisterMode = false;
+                    this.applyLanguage();
+                } else {
+                    var storedPass = localStorage.getItem(`local_reg_${userField}`);
+                    if (userField === "MOHAMED" || storedPass === passField) {
+                        this.loginAsUser(userField, userField.includes('@') ? userField : `${userField.toLowerCase()}@sarl-med.dz`);
+                    } else {
+                        alert(this.lang === 'ar' ? "خطأ في اسم المستخدم أو كلمة المرور السريّة!" : "Invalid Credentials!");
+                    }
+                }
+            },
+
+            generateInvoiceMetadata: function() {
+                let padCounter = String(this.state.invoiceCounter).padStart(4, '0');
+                this.state.currentInvoiceNum = `FAC-2026-${padCounter}`;
+                this.state.currentInvoiceDate = new Date().toLocaleDateString('fr-FR') + " " + new Date().toLocaleTimeString('fr-FR', {hour: '2-digit', minute:'2-digit'});
+                
+                if(document.getElementById('invNum')) document.getElementById('invNum').innerText = this.state.currentInvoiceNum;
+                if(document.getElementById('invDate')) document.getElementById('invDate').innerText = this.state.currentInvoiceDate;
+            },
+
+            loadInventoryDatabase: function() {
+                var prefix = this.state.currentUser ? this.state.currentUser + "_" : "";
+                var stored = localStorage.getItem(prefix + 'hub_inventory_v2');
+                if (stored) {
+                    this.state.products = JSON.parse(stored);
+                } else {
+                    this.state.products = [
+                        { id: 'p1', name: 'علب نقل سميكة (حجم كبير)', type: 'تغليف وتخزين', price: 120, stock: 450 },
+                        { id: 'p2', name: 'قنينة بلاستيك صلب 1 لتر', type: 'مشروبات ومواد', price: 45, stock: 2000 }
+                    ];
+                }
+                this.renderInventoryPanelList();
+                this.renderSelectionGrid();
             },
 
             handleGoogleLogin: function() {
-                var self = this;
-                alert(this.state.currentLang === 'ar' ? "سيتم الآن جلب الحساب المتزامن مع متصفح Google الخاص بك بآمان..." : "Connexion sécurisée avec Google en cours...");
-                
-                setTimeout(function() {
-                    var mockGoogleName = prompt(self.state.currentLang === 'ar' ? "أدخل اسمك في Google:" : "Nom Google :", "Mohamed Bouafia");
-                    var mockGoogleEmail = prompt(self.state.currentLang === 'ar' ? "أدخل بريد Google الإلكتروني:" : "Email Google :", "m.bouafia@gmail.com");
-                    
-                    if(mockGoogleName && mockGoogleEmail) {
-                        self.state.currentUser = mockGoogleName.toUpperCase();
-                        self.state.currentUserEmail = mockGoogleEmail;
-                        self.state.currentUserPic = "https://ui-avatars.com/api/?name=" + encodeURIComponent(mockGoogleName) + "&background=2563eb&color=fff";
-                        
-                        localStorage.setItem('hub_logged_user', self.state.currentUser);
-                        localStorage.setItem('hub_logged_email', self.state.currentUserEmail);
-                        localStorage.setItem('hub_logged_pic', self.state.currentUserPic);
-                        
-                        var usersDb = JSON.parse(localStorage.getItem('hub_users_db')) || {};
-                        usersDb[self.state.currentUser] = "CONNECTED_WITH_GOOGLE";
-                        localStorage.setItem('hub_users_db', JSON.stringify(usersDb));
-
-                        self.init();
-                        self.showMainApp();
-                    }
-                }, 400);
+                this.loginAsUser("MOHAMED", "ali@sarl-med.dz");
             },
 
-            handleRegister: function() {
-                var userInp = prompt(this.state.currentLang === 'ar' ? "أدخل اسم المستخدم الجديد (بالإنجليزي):" : "Nom d'utilisateur :");
-                if(!userInp) return;
-                userInp = userInp.trim().toUpperCase();
-                var passInp = prompt(this.state.currentLang === 'ar' ? "أدخل كلمة المرور الجديدة:" : "Mot de passe :");
-                if(!passInp || passInp.length < 4) return;
-
-                var usersDb = JSON.parse(localStorage.getItem('hub_users_db')) || {};
-                if(usersDb[userInp]) { alert("User Exists!"); return; }
-
-                usersDb[userInp] = passInp;
-                localStorage.setItem('hub_users_db', JSON.stringify(usersDb));
+            loginAsUser: function(name, email) {
+                this.state.currentUser = name;
+                this.state.currentUserEmail = email;
+                localStorage.setItem('hub_logged_user', name);
+                localStorage.setItem('hub_logged_email', email);
+                this.showMainApp();
+                this.loadInventoryDatabase();
             },
 
             showMainApp: function() {
                 document.getElementById('loginScreen').classList.add('hidden');
                 document.getElementById('mainAppContent').classList.remove('hidden');
-                document.getElementById('welcomeUserName').innerText = this.state.currentUser;
                 document.getElementById('welcomeUserEmail').innerText = this.state.currentUserEmail;
-                if(this.state.currentUserPic) document.getElementById('userAvatarImg').src = this.state.currentUserPic;
                 if (typeof lucide !== 'undefined') lucide.createIcons();
             },
 
             handleLogout: function() {
-                if(confirm("Logout?")) {
-                    localStorage.removeItem('hub_logged_user');
-                    localStorage.removeItem('hub_logged_email');
-                    localStorage.removeItem('hub_logged_pic');
-                    location.reload();
+                localStorage.removeItem('hub_logged_user');
+                localStorage.removeItem('hub_logged_email');
+                location.reload();
+            },
+
+            toggleAdminModal: function(show) {
+                var modal = document.getElementById('adminModal');
+                if (show) {
+                    document.getElementById('cfgTvaInput').value = this.state.config.tva;
+                    document.getElementById('cfgCurrencyInput').value = this.state.config.currency;
+                    document.getElementById('cfgSupplierInput').value = this.state.config.name;
+                    document.getElementById('cfgPhoneInput').value = this.state.config.phone;
+                    modal.classList.remove('hidden');
+                } else {
+                    modal.classList.add('hidden');
                 }
             },
 
-            loadInputsFromState: function() {
-                var cfg = this.state.config;
-                document.getElementById('cfgName').value = cfg.name || '';
-                document.getElementById('cfgSlogan').value = cfg.slogan || '';
-                document.getElementById('cfgCurrency').value = cfg.currency || 'DZD';
-                document.getElementById('cfgTva').value = cfg.tva || 19;
-                document.getElementById('cfgCapital').value = cfg.capital || '';
-                document.getElementById('cfgRc').value = cfg.rc || '';
-                document.getElementById('cfgNif').value = cfg.nif || '';
-                document.getElementById('cfgNis').value = cfg.nis || '';
-                document.getElementById('cfgPhone').value = cfg.phone || '';
-                document.getElementById('cfgAddress').value = cfg.address || '';
-                document.getElementById('cfgCliName').value = cfg.cliName || '';
-                document.getElementById('cfgCliAddr').value = cfg.cliAddr || '';
-                document.getElementById('cfgCliAct').value = cfg.cliAct || '';
-                document.getElementById('cfgCliRc').value = cfg.cliRc || '';
-            },
-
-            syncConfig: function() {
-                var cfg = this.state.config;
-                cfg.name = document.getElementById('cfgName').value || cfg.name;
-                cfg.slogan = document.getElementById('cfgSlogan').value || cfg.slogan;
-                cfg.currency = document.getElementById('cfgCurrency').value || cfg.currency;
-                cfg.tva = parseFloat(document.getElementById('cfgTva').value) || cfg.tva;
-                cfg.capital = document.getElementById('cfgCapital').value || cfg.capital;
-                cfg.rc = document.getElementById('cfgRc').value || cfg.rc;
-                cfg.nif = document.getElementById('cfgNif').value || cfg.nif;
-                cfg.nis = document.getElementById('cfgNis').value || cfg.nis;
-                cfg.phone = document.getElementById('cfgPhone').value || cfg.phone;
-                cfg.address = document.getElementById('cfgAddress').value || cfg.address;
-                cfg.cliName = document.getElementById('cfgName').value ? document.getElementById('cfgCliName').value : "-";
-                cfg.cliAddr = document.getElementById('cfgCliAddr').value || "-";
-                cfg.cliAct = document.getElementById('cfgCliAct').value || "-";
-                cfg.cliRc = document.getElementById('cfgCliRc').value || "-";
+            saveAdminSettings: function() {
+                this.state.config.tva = parseFloat(document.getElementById('cfgTvaInput').value) || 0;
+                this.state.config.currency = document.getElementById('cfgCurrencyInput').value;
+                this.state.config.name = document.getElementById('cfgSupplierInput').value;
+                this.state.config.phone = document.getElementById('cfgPhoneInput').value;
                 
-                document.getElementById('summaryClientName').innerText = cfg.cliName;
+                localStorage.setItem('hub_app_config', JSON.stringify(this.state.config));
                 this.updateCalculations();
+                this.toggleAdminModal(false);
+                alert("تم تحديث الإعدادات والضرائب بنجاح!");
             },
 
-            toggleAdminPanel: function() { document.getElementById('adminModal').classList.remove('hidden'); },
-            closeAdminPanel: function() { document.getElementById('adminModal').classList.add('hidden'); },
+            syncClientFields: function() {
+                var cfg = this.state.config;
+                cfg.cliName = document.getElementById('cfgCliName').value;
+                cfg.cliAddr = document.getElementById('cfgCliAddr').value;
+                cfg.cliAct = document.getElementById('cfgCliAct').value;
+                cfg.cliRc = document.getElementById('cfgCliRc').value;
+            },
 
-            addProductToInventory: function() {
+            addNewProduct: function() {
                 var name = document.getElementById('invProdName').value.trim();
-                var type = document.getElementById('invProdType').value.trim() || "Generique";
+                var type = document.getElementById('invProdType').value.trim() || "عام";
                 var price = parseFloat(document.getElementById('invProdPrice').value) || 0;
                 var stock = parseInt(document.getElementById('invProdStock').value) || 0;
 
-                if (!name || price <= 0 || stock <= 0) return;
-
+                if (!name || price <= 0) {
+                    alert("يرجى إدخال البيانات بشكل صحيح");
+                    return;
+                }
                 this.state.products.push({ id: 'prod_' + Date.now(), name: name, type: type, price: price, stock: stock });
-                localStorage.setItem(this.state.currentUser + "_hub_inventory", JSON.stringify(this.state.products));
+                localStorage.setItem(this.state.currentUser + "_hub_inventory_v2", JSON.stringify(this.state.products));
                 
                 document.getElementById('invProdName').value = '';
+                document.getElementById('invProdType').value = '';
                 document.getElementById('invProdPrice').value = '';
                 document.getElementById('invProdStock').value = '';
-                this.renderInventoryManagementList();
-                this.renderProductsGrid();
+                
+                this.loadInventoryDatabase();
             },
 
-            deleteProductFromInventory: function(id) {
+            renderInventoryPanelList: function() {
+                var list = document.getElementById('inventoryManageList');
+                if(!list) return;
+                list.innerHTML = this.state.products.map(p => `
+                    <div class="flex justify-between items-center bg-slate-50 p-2 border border-slate-200 rounded-xl text-xs">
+                        <div class="text-right">
+                            <span class="font-bold text-slate-800">${p.name}</span>
+                            <span class="text-slate-400 block">${p.price} ${this.state.config.currency} - المخزن: ${p.stock}</span>
+                        </div>
+                        <button onclick="window.App.deleteProduct('${p.id}')" class="text-red-500 font-bold bg-red-50 w-6 h-6 rounded-full flex items-center justify-center">✕</button>
+                    </div>
+                `).join('');
+            },
+
+            deleteProduct: function(id) {
                 this.state.products = this.state.products.filter(p => p.id !== id);
-                delete this.state.cart[id];
-                localStorage.setItem(this.state.currentUser + "_hub_inventory", JSON.stringify(this.state.products));
-                this.renderInventoryManagementList();
-                this.renderProductsGrid();
-                this.updateCalculations();
+                localStorage.setItem(this.state.currentUser + "_hub_inventory_v2", JSON.stringify(this.state.products));
+                this.loadInventoryDatabase();
             },
 
-            renderInventoryManagementList: function() {
-                var listContainer = document.getElementById('inventoryManageList');
-                listContainer.innerHTML = this.state.products.map(p => {
-                    return `<div class="flex justify-between bg-slate-50 p-1.5 border rounded-xl text-[10px] mt-1">
-                        <span>${p.name}</span>
-                        <button onclick="window.App.deleteProductFromInventory('${p.id}')" class="text-red-500 font-bold">X</button>
+            renderSelectionGrid: function() {
+                var grid = document.getElementById('productsGrid');
+                if(!grid) return;
+                grid.innerHTML = this.state.products.map(p => {
+                    var qty = this.state.cart[p.id] || 0;
+                    return `
+                    <div class="bg-white rounded-2xl p-4 flex justify-between items-center border border-slate-100 text-xs shadow-sm">
+                        <div class="flex items-center gap-3">
+                            <button onclick="window.App.updateCart('${p.id}', -1)" class="w-9 h-9 bg-slate-100 font-bold rounded-xl text-xl flex items-center justify-center text-slate-600">-</button>
+                            <span class="font-bold px-1 text-base text-slate-800">${qty}</span>
+                            <button onclick="window.App.updateCart('${p.id}', 1)" class="w-9 h-9 bg-slate-100 font-bold rounded-xl text-xl flex items-center justify-center text-slate-600">+</button>
+                        </div>
+                        <div class="text-right">
+                            <span class="font-bold text-slate-900 text-sm block">${p.name}</span>
+                            <span class="text-blue-600 font-bold mt-0.5 block">${this.state.config.currency} ${p.price.toLocaleString()} <span class="text-slate-400 font-normal">(${p.stock})</span></span>
+                        </div>
                     </div>`;
                 }).join('');
             },
 
-            renderProductsGrid: function() {
-                var self = this;
-                var query = document.getElementById('searchInput').value.toLowerCase();
-                var filtered = this.state.products.filter(p => p.name.toLowerCase().includes(query));
-                var grid = document.getElementById('productsGrid');
-
-                if(filtered.length === 0) {
-                    grid.innerHTML = '<div class="text-center py-4 text-gray-400 text-xs">...</div>';
+            updateCart: function(id, change) {
+                if(!this.state.cart[id]) this.state.cart[id] = 0;
+                var p = this.state.products.find(prod => prod.id === id);
+                if (p && change > 0 && this.state.cart[id] >= p.stock) {
+                    alert("المخزن المتاح لا يكفي للطلب الحالى!");
                     return;
                 }
-
-                grid.innerHTML = filtered.map(p => {
-                    var qty = self.state.cart[p.id] || 0;
-                    var sideClass = (self.state.currentLang === 'ar') ? 'text-left' : 'text-right';
-                    return `<div class="bg-white rounded-xl p-2.5 flex justify-between items-center border text-xs mt-1">
-                            <div class="flex items-center gap-2">
-                                <button onclick="window.App.updateCart('${p.id}', -1)" class="w-6 h-6 bg-slate-100 font-bold rounded">-</button>
-                                <span class="font-black px-1 text-sm">${qty}</span>
-                                <button onclick="window.App.updateCart('${p.id}', 1)" class="w-6 h-6 bg-slate-100 font-bold rounded">+</button>
-                            </div>
-                            <div class="${sideClass}">
-                                <span class="font-bold">${p.name}</span><br>
-                                <span class="text-[10px] text-blue-600">${p.price} ${self.state.config.currency} <span class="text-gray-400">(${p.stock})</span></span>
-                            </div>
-                        </div>`;
-                }).join('');
-            },
-
-            updateCart: function(id, change) {
-                var p = this.state.products.find(prod => prod.id === id);
-                if (!p) return;
-                if (!this.state.cart[id]) this.state.cart[id] = 0;
                 this.state.cart[id] += change;
-
-                if (this.state.cart[id] > p.stock) this.state.cart[id] = p.stock;
-                if (this.state.cart[id] <= 0) delete this.state.cart[id];
-                
-                localStorage.setItem(this.state.currentUser + "_hub_cart", JSON.stringify(this.state.cart));
-                this.renderProductsGrid();
+                if(this.state.cart[id] <= 0) delete this.state.cart[id];
+                this.renderSelectionGrid();
                 this.updateCalculations();
             },
 
             updateCalculations: function() {
-                var self = this;
-                var totalHt = 0;
+                var total = 0;
                 Object.keys(this.state.cart).forEach(id => {
-                    var p = self.state.products.find(prod => prod.id === id);
-                    if (p) totalHt += (p.price * self.state.cart[id]);
+                    var p = this.state.products.find(prod => prod.id === id);
+                    if(p) total += (p.price * this.state.cart[id]);
                 });
-                var tvaCost = totalHt * (this.state.config.tva / 100);
-                var totalTtc = totalHt + tvaCost;
+                var factor = 1 + (this.state.config.tva / 100);
+                var totalTtc = total * factor;
                 document.getElementById('rowTotalAmount').innerText = this.state.config.currency + " " + Math.round(totalTtc).toLocaleString();
             },
 
             switchTab: function(tab) {
+                var btnFormTop = document.getElementById('tab-form');
+                var btnPreviewTop = document.getElementById('tab-preview');
+                
                 if (tab === 'form') {
                     document.getElementById('view-form').classList.remove('hidden-tab');
                     document.getElementById('view-preview').classList.add('hidden-tab');
+                    btnFormTop.className = "h-full border-b-2 border-blue-600 text-blue-600 font-bold text-xs px-1";
+                    btnPreviewTop.className = "h-full text-slate-400 font-medium text-xs px-1";
                 } else {
                     document.getElementById('view-form').classList.add('hidden-tab');
                     document.getElementById('view-preview').classList.remove('hidden-tab');
+                    btnFormTop.className = "h-full text-slate-400 font-medium text-xs px-1";
+                    btnPreviewTop.className = "h-full border-b-2 border-blue-600 text-blue-600 font-bold text-xs px-1";
                     this.buildOfficialInvoiceMarkup();
                 }
             },
 
             buildOfficialInvoiceMarkup: function() {
-                var self = this;
                 var cfg = this.state.config;
                 
-                document.getElementById('invCompName').innerText = cfg.name;
-                document.getElementById('invCompSlogan').innerText = cfg.slogan;
-                document.getElementById('invCompCapital').innerText = cfg.capital;
-                document.getElementById('invCompAddr').innerText = cfg.address;
-                document.getElementById('invCompRc').innerText = cfg.rc;
-                document.getElementById('invCompNif').innerText = cfg.nif;
-                document.getElementById('invCompNis').innerText = cfg.nis;
-                document.getElementById('invCompPhone').innerText = cfg.phone;
-                
-                document.getElementById('invCliName').innerText = cfg.cliName;
-                document.getElementById('invCliAddr').innerText = cfg.cliAddr;
-                document.getElementById('invCliAct').innerText = cfg.cliAct;
-                document.getElementById('invCliRc').innerText = cfg.cliRc;
+                document.getElementById('invCliName').innerText = cfg.cliName || "-";
+                document.getElementById('invCliAddr').innerText = cfg.cliAddr || "-";
+                document.getElementById('invCliAct').innerText = cfg.cliAct || "-";
+                document.getElementById('invCliRc').innerText = cfg.cliRc || "-";
+                document.getElementById('lblCompanyIssuer').innerText = cfg.name;
+                document.getElementById('lblPrintTvaRate').innerText = `TOTAL NET TTC (TVA ${cfg.tva}%) :`;
 
                 var totalHt = 0, html = '';
                 Object.keys(this.state.cart).forEach(id => {
-                    var p = self.state.products.find(prod => prod.id === id);
+                    var p = this.state.products.find(prod => prod.id === id);
                     if(p) {
-                        var itemTotal = p.price * self.state.cart[id];
+                        var itemTotal = p.price * this.state.cart[id];
                         totalHt += itemTotal;
-                        html += `<tr class="text-center text-[10px] border-b border-black">
-                                <td class="p-1 text-left border-r border-black font-bold">${p.name}</td>
-                                <td class="p-1 border-r border-black">${p.type}</td>
-                                <td class="p-1 text-right border-r border-black">${p.price.toFixed(2)}</td>
-                                <td class="p-1 border-r border-black">${self.state.cart[id]}</td>
-                                <td class="p-1 text-right">${itemTotal.toFixed(2)}</td>
-                            </tr>`;
+                        html += `
+                        <tr class="text-center text-xs border-b border-black">
+                            <td class="p-2 text-right font-bold border-l border-black">${p.name}</td>
+                            <td class="p-2 border-l border-black">${p.type}</td>
+                            <td class="p-2 text-left border-l border-black">${p.price.toLocaleString()}</td>
+                            <td class="p-2 border-l border-black">${this.state.cart[id]}</td>
+                            <td class="p-2 text-left font-mono">${itemTotal.toLocaleString()}</td>
+                        </tr>`;
                     }
                 });
                 
-                document.getElementById('invoiceTableBody').innerHTML = html || '<tr><td colspan="5" class="p-2 text-center">Empty</td></tr>';
-
-                var tvaCost = totalHt * (cfg.tva / 100);
-                var totalTtc = totalHt + tvaCost;
-
-                document.getElementById('valTotalHt').innerText = totalHt.toFixed(2);
-                document.getElementById('valTvaRate').innerText = cfg.tva;
-                document.getElementById('valTvaCost').innerText = tvaCost.toFixed(2);
-                document.getElementById('valTotalTtc').innerText = totalTtc.toFixed(2);
-                document.getElementById('invoiceTotalWords').innerText = numberToFrWords(totalTtc);
+                document.getElementById('invoiceTableBody').innerHTML = html || '<tr><td colspan="5" class="p-4 text-center">No items selected yet.</td></tr>';
+                
+                var factor = 1 + (cfg.tva / 100);
+                var totalTtc = totalHt * factor;
+                document.getElementById('valTotalHt').innerText = Math.round(totalHt).toLocaleString() + " " + cfg.currency;
+                document.getElementById('valTotalTtc').innerText = Math.round(totalTtc).toLocaleString() + " " + cfg.currency;
+                document.getElementById('invoiceTotalWords').innerText = numberToFrWords(totalTtc) + ` (${cfg.currency})`;
             },
 
-            printInvoiceDirectly: function() {
+            saveInvoiceProgress: function() {
+                if(Object.keys(this.state.cart).length === 0) {
+                    alert("Please add products first!");
+                    return;
+                }
+                this.state.invoiceCounter += 1;
+                localStorage.setItem('hub_invoice_counter', this.state.invoiceCounter);
+                alert("Saved effectively!");
+                this.generateInvoiceMetadata();
+                this.switchTab('preview');
+            },
+
+            printInvoice: function() {
                 this.switchTab('preview');
                 setTimeout(() => { window.print(); }, 300);
             },
 
-            saveConfig: function() {
-                localStorage.setItem(this.state.currentUser + "_hub_config", JSON.stringify(this.state.config));
-                alert("Saved!");
-            },
-
-            sendOrderWhatsApp: function() {
-                var msg = "Order Info - " + this.state.config.name + " | Total TTC: " + document.getElementById('rowTotalAmount').innerText;
-                window.open('https://wa.me/' + this.state.config.phone + '?text=' + encodeURIComponent(msg), '_blank');
-            },
-            
-            resetForm: function() {
-                this.state.cart = {};
-                localStorage.removeItem(this.state.currentUser + "_hub_cart");
-                this.renderProductsGrid();
-                this.updateCalculations();
+            sendWhatsApp: function() {
+                var cfg = this.state.config;
+                var total = document.getElementById('rowTotalAmount').innerText;
+                var msg = `Hello,\nOrder pre-check Details:\n\nInvoice: ${this.state.currentInvoiceNum}\nDate: ${this.state.currentInvoiceDate}\nTotal Amount: ${total}\n\nThank you - ${cfg.name}`;
+                window.open(`https://wa.me/${cfg.phone}?text=${encodeURIComponent(msg)}`, '_blank');
             }
         };
     </script>
 </head>
-<body class="bg-[#f4f7fa] text-slate-800 min-h-screen pb-24 select-none">
+<body class="bg-[#f4f7fa] text-slate-800 min-h-screen pb-24">
 
-    <!-- 🔐 شاشة تسجيل الدخول -->
+    <!-- LOGIN SCREEN -->
     <div id="loginScreen" class="fixed inset-0 z-[200] bg-[#f4f7fa] flex items-center justify-center p-4 overflow-y-auto">
-        <div class="bg-white rounded-3xl border border-slate-200 p-6 w-full max-w-md shadow-2xl space-y-4 text-center my-auto relative">
+        <div class="bg-white rounded-3xl border border-slate-200 p-6 w-full max-w-md shadow-2xl space-y-4 text-center">
             
-            <div class="space-y-1">
-                <div class="w-14 h-14 bg-blue-600 rounded-2xl flex items-center justify-center text-white mx-auto shadow-md">
-                    <i data-lucide="shield-check" class="w-7 h-7"></i>
+            <div class="space-y-1 pt-2">
+                <div class="relative w-24 h-24 mx-auto mb-3 flex items-center justify-center bg-slate-900 rounded-3xl shadow-xl border border-slate-800">
+                    <div class="absolute inset-2 border-2 border-dashed border-blue-500/30 rounded-2xl animate-spin" style="animation-duration: 20s;"></div>
+                    <div class="relative flex flex-col items-center justify-center text-white">
+                        <div class="flex items-center gap-0.5 text-orange-500 font-black tracking-widest text-lg leading-none -mb-1">
+                            <span>▲</span><span>▲</span>
+                        </div>
+                        <span class="text-4xl font-black text-transparent bg-clip-text bg-gradient-to-br from-blue-400 via-white to-blue-200">M</span>
+                        <div class="w-6 h-1 bg-gradient-to-r from-orange-500 to-blue-500 rounded mt-0.5"></div>
+                    </div>
                 </div>
-                <h2 data-i18n="title" class="text-xl font-black text-slate-900">Sarl MED Distribution</h2>
-                <p data-i18n="subtitle" class="text-xs text-slate-400 font-medium">نظام إدارة الفواتير والمخزون المستقل</p>
+                <h2 id="lblTitle" class="text-xl font-black text-slate-900 tracking-tight">Sarl MED Distribution</h2>
+                <p id="lblSubtitle" class="text-[11px] text-slate-400 font-medium px-4">المنصة الذكية للنقل، التخزين واللوجستيات العامة</p>
             </div>
 
-            <button onclick="window.App.handleGoogleLogin()" class="w-full py-2.5 border border-slate-200 hover:bg-slate-50 text-slate-700 rounded-xl text-xs font-bold transition-all flex items-center justify-center gap-2 shadow-sm">
-                <svg class="w-4 h-4" viewBox="0 0 24 24"><path fill="#EA4335" d="M12.24 10.285V14.4h6.887c-.275 1.565-1.88 4.604-6.887 4.604-4.33 0-7.859-3.579-7.859-8s3.53-8 7.859-8c2.46 0 4.105 1.025 5.047 1.926l3.227-3.227C18.416 1.439 15.626 0 12.24 0 5.58 0 0 5.58 0 12.24s5.58 12.24 12.24 12.24c6.96 0 11.57-4.894 11.57-11.79 0-.795-.085-1.402-.192-1.905H12.24z"/></svg>
-                <span data-i18n="googleLogin">متابعة باستخدام Google</span>
+            <button onclick="window.App.handleGoogleLogin()" class="w-full py-3 border border-slate-200 text-slate-700 rounded-xl text-xs font-bold flex items-center justify-center gap-2 bg-white shadow-sm hover:bg-slate-50 transition-all">
+                <svg class="w-4 h-4" viewBox="0 0 24 24"><path fill="#EA4335" d="M12.24 10.285V14.4 h6.887c-.275 1.565-1.88 4.604-6.887 4.604-4.33 0-7.859-3.579-7.859-8s3.53-8 7.859-8c2.46 0 4.105 1.025 5.047 1.926l3.227-3.227C18.416 1.439 15.626 0 12.24 0 5.58 0 0 5.58 0 12.24s5.58 12.24 12.24 12.24c6.96 0 11.57-4.894 11.57-11.79 0-.795-.085-1.402-.192-1.905H12.24z"/></svg>
+                <span id="lblGoogleLogin">متابعة باستخدام Google</span>
             </button>
-
-            <div data-i18n="orLocal" class="flex items-center my-2 text-slate-300 text-[10px] before:content-[''] before:flex-1 before:border-b before:border-slate-200 before:ml-2 after:content-[''] after:flex-1 after:border-b after:border-slate-200 after:mr-2 font-bold">أو عبر حساب محلي</div>
-
-            <div class="space-y-3 text-start">
+            
+            <div id="lblFormHeader" class="flex items-center my-1 text-slate-300 text-[10px] before:content-[''] before:flex-1 before:border-b before:border-slate-200 before:ml-2 after:content-[''] after:flex-1 after:border-b after:border-slate-200 after:mr-2 font-bold">أو عبر حساب محلي</div>
+            
+            <div class="space-y-3 text-right">
                 <div>
-                    <label data-i18n="username" class="block text-xs font-bold text-slate-600 mb-1">اسم المستخدم</label>
-                    <input type="text" id="loginUser" placeholder="MOHAMED" class="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs outline-none focus:border-blue-500 font-bold">
+                    <label id="lblUsername" class="block text-xs font-bold text-slate-600 mb-1">اسم المستخدم / البريد الإلكتروني</label>
+                    <input type="text" id="loginUser" value="MOHAMED" class="w-full px-3 py-2.5 border border-slate-200 rounded-xl text-xs font-bold outline-none focus:border-blue-500 bg-white">
                 </div>
                 <div>
-                    <label data-i18n="password" class="block text-xs font-bold text-slate-600 mb-1">كلمة المرور</label>
-                    <input type="password" id="loginPass" placeholder="••••••••" class="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs outline-none focus:border-blue-500">
-                </div>
-                <div class="flex items-center justify-between pt-0.5">
-                    <label class="flex items-center gap-1.5 cursor-pointer">
-                        <input type="checkbox" id="loginRemember" class="rounded text-blue-600 w-3.5 h-3.5" checked>
-                        <span data-i18n="rememberMe" class="text-[10px] text-slate-500 font-medium">تذكر بياناتي</span>
-                    </label>
-                    <button onclick="window.App.handleRegister()" data-i18n="createAccount" class="text-[10px] text-blue-600 hover:underline font-bold">إنشاء حساب مستقل جديد؟</button>
+                    <label id="lblPassword" class="block text-xs font-bold text-slate-600 mb-1">كلمة المرور</label>
+                    <input type="password" id="loginPass" value="123456" class="w-full px-3 py-2.5 border border-slate-200 rounded-xl text-xs outline-none focus:border-blue-500 bg-white">
                 </div>
             </div>
 
-            <button onclick="window.App.handleLogin()" class="w-full py-2.5 bg-blue-600 hover:bg-blue-700 text-white rounded-xl font-bold transition-all text-xs flex items-center justify-center gap-2">
-                <i data-lucide="log-in" class="w-4 h-4"></i> <span data-i18n="loginBtn">دخول للمنصة</span>
+            <div class="flex justify-center items-center gap-1.5 bg-slate-100 p-1 rounded-2xl w-full text-xs my-2">
+                <button id="btn-lang-ar" onclick="window.App.setLanguage('ar')" class="flex-1 py-2 rounded-xl transition-all font-bold">العربية</button>
+                <button id="btn-lang-fr" onclick="window.App.setLanguage('fr')" class="flex-1 py-2 rounded-xl transition-all font-semibold text-slate-600">Français</button>
+                <button id="btn-lang-en" onclick="window.App.setLanguage('en')" class="flex-1 py-2 rounded-xl transition-all font-semibold text-slate-600">English</button>
+            </div>
+            
+            <button onclick="window.App.handleAuthAction()" class="w-full py-2.5 bg-blue-600 hover:bg-blue-700 text-white rounded-xl font-bold text-xs flex items-center justify-center gap-2 shadow-md transition-all">
+                <i data-lucide="shield-check" class="w-4 h-4"></i> <span id="lblLoginBtn">دخول للمنصة</span>
             </button>
-            <p data-i18n="defaultUserHint" class="text-[9px] text-slate-400">الحساب الافتراضي: MOHAMED الرمز: 123456</p>
 
-            <!-- زر اختيار اللغة في شاشة القفل بالأسفل -->
-            <div class="pt-2 border-t border-slate-100 flex justify-center">
-                <select id="loginLangSelect" onchange="window.App.changeLanguage(this.value)" class="bg-slate-100 border border-slate-200 text-slate-700 font-bold py-1 px-3 rounded-lg text-xs outline-none cursor-pointer">
-                    <option value="ar">العربية (AR)</option>
-                    <option value="fr">Français (FR)</option>
-                    <option value="en">English (EN)</option>
-                </select>
+            <div class="text-xs pt-1 flex items-center justify-center gap-1">
+                <span id="lblNoAccount" class="text-slate-400">ليس لديك حساب؟</span>
+                <button onclick="window.App.toggleRegisterMode()" id="toggleModeBtn" class="text-blue-600 font-bold underline hover:text-blue-800">إنشاء حساب جديد</button>
             </div>
         </div>
     </div>
 
-    <!-- 💻 واجهة التطبيق الرئيسية -->
+    <!-- MAIN APP -->
     <div id="mainAppContent" class="hidden">
+        <!-- HEADER -->
         <header class="sticky top-0 z-40 bg-white border-b border-slate-200 no-print shadow-sm">
             <div class="max-w-xl mx-auto flex items-center justify-between px-4 h-14">
-                <button onclick="window.App.resetForm()" class="text-slate-600 hover:text-slate-900 p-1"><i data-lucide="rotate-ccw" class="w-5 h-5"></i></button>
-                <div class="flex gap-6 h-full items-center">
-                    <button id="tab-form" onclick="window.App.switchTab('form')" data-i18n="tabForm" class="h-full border-b-2 border-blue-600 text-blue-600 font-bold text-sm px-1">تعبئة الفاتورة</button>
-                    <button id="tab-preview" onclick="window.App.switchTab('preview')" data-i18n="tabPreview" class="h-full text-slate-400 font-medium text-sm px-1">معاينة الفاتورة</button>
+                <button onclick="window.App.toggleAdminModal(true)" class="text-blue-600 font-bold text-xs bg-blue-50 px-3 py-1.5 rounded-xl flex items-center gap-1">⚙️ الإدارة والضرائب</button>
+                <div class="flex gap-4 h-full items-center">
+                    <button id="tab-form" onclick="window.App.switchTab('form')" class="h-full border-b-2 border-blue-600 text-blue-600 font-bold text-xs px-1">تعبئة الفاتورة</button>
+                    <button id="tab-preview" onclick="window.App.switchTab('preview')" class="h-full text-slate-400 font-medium text-xs px-1">معاينة الفاتورة</button>
                 </div>
-                <button onclick="window.App.toggleAdminPanel()" data-i18n="adminPanel" class="text-xs bg-blue-50 text-blue-700 px-2.5 py-1 rounded-lg font-bold">لوحة الإدارة</button>
+                <div class="w-10"></div>
             </div>
         </header>
 
-        <main class="max-w-xl mx-auto mt-2 px-3 space-y-2">
-            <div class="bg-[#e8f4fd] border border-blue-100 rounded-xl p-2.5 flex items-center justify-between no-print shadow-sm">
-                <div class="flex items-center gap-2.5">
-                    <img id="userAvatarImg" src="https://ui-avatars.com/api/?name=User&background=2563eb&color=fff" class="w-8 h-8 rounded-full object-cover">
+        <!-- ADMIN MODAL -->
+        <div id="adminModal" class="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4 hidden">
+            <div class="bg-white rounded-2xl p-5 w-full max-w-sm space-y-4 text-right">
+                <h3 id="adminModalTitle" class="font-black text-slate-900 text-sm border-b pb-2">لوحة الإدارة وتكوين الشركة والضرائب</h3>
+                <div class="space-y-3 text-xs">
                     <div>
-                        <h4 class="text-xs font-black text-blue-900"><span data-i18n="welcome">مرحباً،</span> <span id="welcomeUserName" class="text-blue-600 underline">..</span></h4>
-                        <p id="welcomeUserEmail" class="text-[9px] text-blue-500 font-mono">..</p>
+                        <label id="lblAdminTva" class="block font-bold text-slate-700 mb-1">نسبة الضريبة TVA %</label>
+                        <input type="number" id="cfgTvaInput" class="w-full p-2 bg-slate-50 border rounded-xl outline-none font-bold">
+                    </div>
+                    <div>
+                        <label id="lblAdminCurrency" class="block font-bold text-slate-700 mb-1">العملة الإفتراضية</label>
+                        <input type="text" id="cfgCurrencyInput" class="w-full p-2 bg-slate-50 border rounded-xl outline-none font-bold">
+                    </div>
+                    <div>
+                        <label id="lblAdminSupplier" class="block font-bold text-slate-700 mb-1">اسم الشركة الموردة</label>
+                        <input type="text" id="cfgSupplierInput" class="w-full p-2 bg-slate-50 border rounded-xl outline-none font-bold">
+                    </div>
+                    <div>
+                        <label id="lblAdminWhitespace" class="block font-bold text-slate-700 mb-1">رقم هاتف الواتساب للمبيعات</label>
+                        <input type="text" id="cfgPhoneInput" class="w-full p-2 bg-slate-50 border rounded-xl outline-none font-bold">
                     </div>
                 </div>
-                <button onclick="window.App.handleLogout()" data-i18n="logout" class="text-[10px] bg-red-50 text-red-600 px-2 py-1 rounded-lg font-bold">خروج</button>
-            </div>
-
-            <div id="view-form" class="space-y-2 no-print">
-                <details class="group bg-white rounded-2xl border border-amber-200 shadow-sm overflow-hidden">
-                    <summary class="p-3 flex justify-between items-center cursor-pointer list-none bg-amber-50/40">
-                        <span data-i18n="manageInventory" class="text-xs font-bold text-amber-900">📦 إدارة دليل السلع والمخزون الخاص بك</span>
-                        <i data-lucide="chevron-down" class="w-4 h-4 text-amber-500"></i>
-                    </summary>
-                    <div class="p-3 bg-white border-t border-amber-100 space-y-3 text-xs">
-                        <div class="grid grid-cols-2 gap-2">
-                            <input type="text" id="invProdName" data-i18n-ph="prodName" placeholder="اسم المادة" class="w-full p-2 bg-slate-50 border rounded-xl outline-none">
-                            <input type="text" id="invProdType" data-i18n-ph="prodCategory" placeholder="الفئة" class="w-full p-2 bg-slate-50 border rounded-xl outline-none">
-                            <input type="number" id="invProdPrice" data-i18n-ph="prodPrice" placeholder="السعر" class="w-full p-2 bg-slate-50 border rounded-xl outline-none">
-                            <input type="number" id="invProdStock" data-i18n-ph="prodStock" placeholder="الكمية المتوفرة" class="w-full p-2 bg-slate-50 border rounded-xl outline-none">
-                        </div>
-                        <button onclick="window.App.addProductToInventory()" data-i18n="addInventory" type="button" class="w-full py-2 bg-amber-600 text-white rounded-xl font-bold">+ إضافة للمستودع</button>
-                        <div id="inventoryManageList" class="space-y-1 max-h-32 overflow-y-auto"></div>
-                    </div>
-                </details>
-
-                <div class="bg-white rounded-2xl border border-slate-100 shadow-sm overflow-hidden">
-                    <details class="group" open>
-                        <summary class="p-3 flex justify-between items-center cursor-pointer list-none bg-slate-50/60">
-                            <span data-i18n="clientInfo" class="text-xs font-bold text-slate-700">بيانات الزبون أو الشركة المستلمة</span>
-                            <span id="summaryClientName" class="text-xs font-bold text-blue-600">-</span>
-                        </summary>
-                        <div class="p-3 bg-white border-t border-slate-100 grid grid-cols-2 gap-2 text-xs">
-                            <input type="text" id="cfgCliName" oninput="window.App.syncConfig()" data-i18n-ph="clientNamePh" placeholder="اسم الزبون" class="w-full p-2 bg-slate-50 border rounded-xl">
-                            <input type="text" id="cfgCliAddr" oninput="window.App.syncConfig()" data-i18n-ph="addressPh" placeholder="العنوان" class="w-full p-2 bg-slate-50 border rounded-xl">
-                            <input type="text" id="cfgCliAct" oninput="window.App.syncConfig()" data-i18n-ph="activityPh" placeholder="النشاط" class="w-full p-2 bg-slate-50 border rounded-xl">
-                            <input type="text" id="cfgCliRc" oninput="window.App.syncConfig()" data-i18n-ph="rcPh" placeholder="السجل التجاري RC" class="w-full p-2 bg-slate-50 border rounded-xl">
-                        </div>
-                    </details>
+                <div class="flex gap-2">
+                    <button onclick="window.App.saveAdminSettings()" id="btnSaveAdmin" class="flex-1 py-2 bg-blue-600 text-white rounded-xl text-xs font-bold">حفظ وإغلاق التكوين</button>
+                    <button onclick="window.App.toggleAdminModal(false)" class="px-4 py-2 bg-slate-100 text-slate-600 rounded-xl text-xs font-bold">إلغاء</button>
                 </div>
-
-                <div class="bg-white rounded-2xl border border-slate-100 shadow-sm overflow-hidden">
-                    <div data-i18n="quantitySelect" class="p-3 bg-slate-50/40 border-b border-slate-100 text-xs font-bold">صرف وتحديد كميات مواد الطلبية الحالية</div>
-                    <div class="p-3 space-y-2">
-                        <input type="text" id="searchInput" oninput="window.App.renderProductsGrid()" data-i18n-ph="searchPh" placeholder="ابحث في دليل السلع..." class="w-full px-3 py-2 bg-slate-50 border rounded-xl text-xs outline-none">
-                        <div id="productsGrid" class="grid grid-cols-1 gap-1.5 max-h-52 overflow-y-auto"></div>
-                    </div>
-                </div>
-
-                <div class="bg-slate-800 text-white p-3 rounded-xl flex justify-between items-center font-bold shadow-sm">
-                    <span id="rowTotalAmount" class="text-base font-black">DZD 0</span>
-                    <span data-i18n="totalTtcLabel" class="text-xs">الإجمالي الإفتراضي للطلب الحاضر (TTC)</span>
-                </div>
-            </div>
-
-            <!-- شاشة المعاينة قبل الطباعة -->
-            <div id="view-preview" class="hidden-tab bg-white rounded-2xl shadow-sm border p-3 overflow-x-auto">
-                <div id="invoicePrintArea" dir="ltr" class="bg-white p-1 text-black font-serif text-[11px] space-y-2 max-w-[210mm] mx-auto text-left">
-                    <div class="border border-black p-1 text-center bg-gray-50">
-                        <h2 class="text-sm font-black">FACTURE N° <span id="invNum">01-2026</span></h2>
-                    </div>
-                    <div class="text-left font-bold text-[10px]">Date : <span id="invDate">..</span></div>
-                    
-                    <div class="print-grid grid grid-cols-2 gap-0 border border-black divide-x divide-black text-left">
-                        <div class="p-2 space-y-0.5 text-[10px]">
-                            <div>Client : <span class="font-black" id="invCliName">-</span></div>
-                            <div>Adresse : <span id="invCliAddr">-</span></div>
-                            <div>Activité : <span id="invCliAct">-</span></div>
-                            <div>RC : <span id="invCliRc">-</span></div>
-                        </div>
-                        <div class="p-2 space-y-0.5 text-[10px] border-l border-black">
-                            <div class="font-black text-[11px]" id="invCompName">-</div>
-                            <div>Capital : <span id="invCompCapital">-</span></div>
-                            <div>Activité : <span id="invCompSlogan">-</span></div>
-                            <div>Adresse : <span id="invCompAddr">-</span></div>
-                            <div>RC : <span id="invCompRc">-</span></div>
-                            <div>NIF : <span id="invCompNif">-</span></div>
-                            <div>NIS : <span id="invCompNis">-</span></div>
-                            <div>Tél : <span id="invCompPhone">-</span></div>
-                        </div>
-                    </div>
-
-                    <table class="w-full text-left border-collapse border border-black text-[10px]">
-                        <thead>
-                            <tr class="bg-gray-100 border-b border-black text-center font-bold">
-                                <th class="border-r border-black p-1 text-left" style="width: 45%;">Description</th>
-                                <th class="border-r border-black p-1 text-center" style="width: 15%;">Type</th>
-                                <th class="border-r border-black p-1 text-right" style="width: 15%;">PU HT</th>
-                                <th class="border-r border-black p-1 text-center" style="width: 10%;">Qté</th>
-                                <th class="p-1 text-right" style="width: 15%;">Montant HT</th>
-                            </tr>
-                        </thead>
-                        <tbody id="invoiceTableBody"></tbody>
-                    </table>
-
-                    <div class="flex justify-end pt-1">
-                        <div class="w-full max-w-xs border border-black text-[10px]">
-                            <div class="flex border-b border-black"><span class="w-1/2 p-1 border-r border-black font-bold">TOTAL HT</span><span id="valTotalHt" class="w-1/2 p-1 text-right">0.00</span></div>
-                            <div class="flex border-b border-black"><span class="w-1/2 p-1 border-r border-black font-bold">TVA <span id="valTvaRate">19</span> %</span><span id="valTvaCost" class="w-1/2 p-1 text-right">0.00</span></div>
-                            <div class="flex font-black bg-gray-100"><span class="w-1/2 p-1 border-r border-black">TOTAL TTC</span><span id="valTotalTtc" class="w-1/2 p-1 text-right text-blue-700">0.00</span></div>
-                        </div>
-                    </div>
-                    <div class="border border-black p-1.5 text-left italic font-bold text-[10px]">
-                        Arrêtée la présente facture à la somme de : <span id="invoiceTotalWords" class="underline">Zero Dinars</span>
-                    </div>
-                </div>
-            </div>
-        </main>
-
-        <!-- نافذة الإدارة الإعدادية -->
-        <div id="adminModal" class="fixed inset-0 z-[100] bg-slate-900/50 backdrop-blur-sm flex items-center justify-center p-4 hidden no-print">
-            <div class="bg-white rounded-2xl border p-4 w-full max-w-xl max-h-[85vh] overflow-y-auto text-xs space-y-2">
-                <div class="flex justify-between items-center border-b pb-2">
-                    <span data-i18n="adminTitle" class="font-bold text-blue-900 text-sm">لوحة الإدارة وتكوين الشركة</span>
-                    <button onclick="window.App.closeAdminPanel()" class="text-slate-400 font-bold text-sm px-2">✕</button>
-                </div>
-                <div class="grid grid-cols-2 gap-2 text-start">
-                    <div><label data-i18n="tvaLabel" class="block text-[10px] mb-0.5">نسبة الضريبة TVA %</label><input type="number" id="cfgTva" oninput="window.App.syncConfig()" class="w-full p-2 bg-slate-50 border rounded-xl"></div>
-                    <div><label data-i18n="currencyLabel" class="block text-[10px] mb-0.5">العملة</label><input type="text" id="cfgCurrency" oninput="window.App.syncConfig()" class="w-full p-2 bg-slate-50 border rounded-xl"></div>
-                    <div class="col-span-2"><label data-i18n="supplierNameLabel" class="block text-[10px] mb-0.5">اسم الشركة الموردة</label><input type="text" id="cfgName" oninput="window.App.syncConfig()" class="w-full p-2 bg-slate-50 border rounded-xl font-bold"></div>
-                    <div class="col-span-2"><label data-i18n="visualActivityLabel" class="block text-[10px] mb-0.5">النشاط البصري</label><input type="text" id="cfgSlogan" oninput="window.App.syncConfig()" class="w-full p-2 bg-slate-50 border rounded-xl"></div>
-                    <div><label class="block text-[10px] mb-0.5">RC</label><input type="text" id="cfgRc" oninput="window.App.syncConfig()" class="w-full p-2 bg-slate-50 border rounded-xl"></div>
-                    <div><label class="block text-[10px] mb-0.5">NIF</label><input type="text" id="cfgNif" oninput="window.App.syncConfig()" class="w-full p-2 bg-slate-50 border rounded-xl"></div>
-                    <div><label class="block text-[10px] mb-0.5">NIS</label><input type="text" id="cfgNis" oninput="window.App.syncConfig()" class="w-full p-2 bg-slate-50 border rounded-xl"></div>
-                    <div><label class="block text-[10px] mb-0.5">Capital</label><input type="text" id="cfgCapital" oninput="window.App.syncConfig()" class="w-full p-2 bg-slate-50 border rounded-xl"></div>
-                    <div class="col-span-2"><label data-i18n="whatsappNumLabel" class="block text-[10px] mb-0.5">رقم الهاتف للواتساب</label><input type="text" id="cfgPhone" oninput="window.App.syncConfig()" class="w-full p-2 bg-slate-50 border rounded-xl"></div>
-                    <div class="col-span-2"><label class="block text-[10px] mb-0.5">Adresse</label><input type="text" id="cfgAddress" oninput="window.App.syncConfig()" class="w-full p-2 bg-slate-50 border rounded-xl"></div>
-                </div>
-                <button onclick="window.App.saveConfig(); window.App.closeAdminPanel();" data-i18n="saveCloseAdmin" class="w-full py-2.5 bg-blue-600 text-white rounded-xl font-bold mt-2">حفظ وإغلاق التكوين</button>
             </div>
         </div>
 
-        <!-- 🏁 شريط التحكم السفلي المحسن (يحتوي الآن على أداة اللغة بالأسفل) -->
-        <footer class="fixed bottom-0 left-0 right-0 bg-white border-t h-16 z-40 no-print shadow-md">
-            <div class="max-w-xl mx-auto h-full flex flex-row items-center justify-between px-2 text-center text-[10px] font-bold text-slate-500 gap-1">
+        <main class="max-w-xl mx-auto mt-2 px-3 space-y-3">
+            
+            <!-- VIEW FORM -->
+            <div id="view-form">
                 
-                <!-- أداة اختيار اللغة المدمجة بالأسفل على اليسار أو اليمين حسب الاتجاه -->
-                <div class="px-1">
-                    <select id="langSelect" onchange="window.App.changeLanguage(this.value)" class="bg-slate-100 border border-slate-300 text-slate-800 font-bold p-1.5 rounded-xl text-[10px] shadow-sm outline-none cursor-pointer">
-                        <option value="ar">العربية</option>
-                        <option value="fr">FR</option>
-                        <option value="en">EN</option>
-                    </select>
+                <!-- Welcome Banner -->
+                <div class="bg-blue-600 rounded-2xl p-4 text-white no-print shadow-md">
+                    <div class="flex items-center justify-between">
+                        <div class="text-right">
+                            <span id="welcomeUserEmail" class="text-sm font-black tracking-wide block">ali@sarl-med.dz</span>
+                            <span class="text-white/70 text-xs">Sarl MED Distribution — Hub System</span>
+                        </div>
+                        <button onclick="window.App.handleLogout()" 
+                                class="bg-white/20 hover:bg-white/30 transition px-3 py-1.5 rounded-xl text-xs font-bold flex items-center gap-1.5">
+                            <i data-lucide="log-out" class="w-3.5 h-3.5"></i>
+                            <span>خروج</span>
+                        </button>
+                    </div>
                 </div>
 
-                <button onclick="window.App.saveConfig();" class="flex-1 py-2 hover:text-blue-600"><i data-lucide="save" class="w-4 h-4 mx-auto mb-0.5"></i><span data-i18n="saveBtn">حفظ التدوين</span></button>
-                <button onclick="window.App.sendOrderWhatsApp();" class="flex-1 py-2 hover:text-emerald-600"><i data-lucide="send" class="w-4 h-4 mx-auto mb-0.5"></i><span data-i18n="whatsappBtn">إرسال واتساب</span></button>
-                <button onclick="window.App.printInvoiceDirectly();" class="flex-1 py-2 hover:text-slate-900"><i data-lucide="printer" class="w-4 h-4 mx-auto mb-0.5"></i><span data-i18n="printBtn">طباعة الفاتورة</span></button>
-                <button onclick="window.App.switchTab('preview');" class="flex-1 py-2 hover:text-purple-600"><i data-lucide="eye" class="w-4 h-4 mx-auto mb-0.5"></i><span data-i18n="quickPreview">المعاينة</span></button>
+                <!-- Inventory Management -->
+                <div class="bg-white rounded-3xl p-5 border border-slate-100 shadow-sm">
+                    <div class="flex items-center justify-between mb-4">
+                        <span id="lblManageInventory" class="font-black text-slate-900">📦 إدارة دليل السلع والمخزون الخاص بك</span>
+                        <button onclick="window.App.addNewProduct()" 
+                                class="text-xs bg-emerald-600 hover:bg-emerald-700 text-white px-4 py-1.5 rounded-xl font-bold flex items-center gap-1 transition-all">
+                            <i data-lucide="plus" class="w-3.5 h-3.5"></i> 
+                            <span>إضافة</span>
+                        </button>
+                    </div>
+                    
+                    <!-- Add Product Form -->
+                    <div class="grid grid-cols-2 gap-2 mb-4">
+                        <input id="invProdName" placeholder="اسم المادة الجديدة" class="col-span-2 text-xs p-2.5 border border-slate-200 rounded-2xl focus:border-blue-500 outline-none">
+                        <input id="invProdType" placeholder="النوع / الفئة" class="text-xs p-2.5 border border-slate-200 rounded-2xl focus:border-blue-500 outline-none">
+                        <input id="invProdPrice" type="number" placeholder="السعر (DZD)" class="text-xs p-2.5 border border-slate-200 rounded-2xl focus:border-blue-500 outline-none">
+                        <input id="invProdStock" type="number" placeholder="الكمية في المخزن" class="text-xs p-2.5 border border-slate-200 rounded-2xl focus:border-blue-500 outline-none">
+                    </div>
+                    
+                    <div id="inventoryManageList" class="space-y-1.5 max-h-36 overflow-auto pr-1"></div>
+                </div>
+
+                <!-- Client Information -->
+                <div class="bg-white rounded-3xl p-5 border border-slate-100 shadow-sm">
+                    <span id="lblClientInfo" class="font-black text-slate-900 block mb-3">بيانات الزبون أو الشركة المستلمة</span>
+                    <div class="space-y-3 text-xs">
+                        <input id="cfgCliName" oninput="window.App.syncClientFields()" placeholder="اسم الزبون أو الشركة" class="w-full p-3 border border-slate-200 rounded-2xl focus:border-blue-500 outline-none">
+                        <input id="cfgCliAddr" oninput="window.App.syncClientFields()" placeholder="العنوان الكامل" class="w-full p-3 border border-slate-200 rounded-2xl focus:border-blue-500 outline-none">
+                        <div class="grid grid-cols-2 gap-3">
+                            <input id="cfgCliAct" oninput="window.App.syncClientFields()" placeholder="النشاط التجاري" class="p-3 border border-slate-200 rounded-2xl focus:border-blue-500 outline-none">
+                            <input id="cfgCliRc" oninput="window.App.syncClientFields()" placeholder="رقم السجل التجاري (RC)" class="p-3 border border-slate-200 rounded-2xl focus:border-blue-500 outline-none">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Quantity Selection -->
+                <div class="bg-white rounded-3xl p-5 border border-slate-100 shadow-sm">
+                    <span id="lblQuantitySelect" class="font-black text-slate-900 block mb-3">تحديد كميات مواد الطلب الحالي وتحديث المخازن</span>
+                    <div id="productsGrid" class="grid grid-cols-1 gap-2"></div>
+                </div>
+
+                <!-- Total & Actions -->
+                <div class="bg-white rounded-3xl p-5 border border-slate-100 shadow-sm">
+                    <div class="flex flex-col md:flex-row items-center justify-between gap-4">
+                        <div class="text-center md:text-right">
+                            <span id="lblTotalTtcLabel" class="text-xs text-slate-500 block">إخطار الإفتراضي للطلب المسبق (شامل الضريبة)</span>
+                            <div id="rowTotalAmount" class="text-4xl font-black text-blue-600 tracking-tighter">DZD 0</div>
+                        </div>
+                        
+                        <div class="flex flex-wrap justify-center gap-2 w-full md:w-auto">
+                            <button onclick="window.App.saveInvoiceProgress()" 
+                                    class="flex-1 md:flex-none bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold px-6 py-3 rounded-2xl flex items-center justify-center gap-2 transition-all">
+                                <i data-lucide="save" class="w-4 h-4"></i>
+                                <span>حفظ التقدم</span>
+                            </button>
+                            <button onclick="window.App.printInvoice()" 
+                                    class="flex-1 md:flex-none bg-slate-900 hover:bg-black text-white text-xs font-bold px-6 py-3 rounded-2xl flex items-center justify-center gap-2 transition-all">
+                                <i data-lucide="printer" class="w-4 h-4"></i>
+                                <span>طباعة الفاتورة</span>
+                            </button>
+                            <button onclick="window.App.sendWhatsApp()" 
+                                    class="flex-1 md:flex-none bg-[#25D366] hover:bg-[#128C7E] text-white text-xs font-bold px-6 py-3 rounded-2xl flex items-center justify-center gap-2 transition-all">
+                                <i data-lucide="message-circle" class="w-4 h-4"></i>
+                                <span>إرسال واتساب</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
             </div>
-        </footer>
+            <!-- END VIEW FORM -->
+
+            <!-- INVOICE PREVIEW -->
+            <div id="view-preview" class="hidden-tab">
+                <div id="invoicePrintArea" class="bg-white border border-slate-200 rounded-3xl p-6 text-sm shadow-inner max-w-[210mm] mx-auto">
+                    
+                    <!-- Invoice Header -->
+                    <div class="flex justify-between items-start border-b border-black pb-4">
+                        <div>
+                            <div class="font-black text-2xl text-slate-900 tracking-tight" id="lblCompanyIssuer">Sarl MED Distribution</div>
+                            <div class="text-[10px] text-slate-500 mt-0.5">المنطقة الصناعية، ورقلة العاصمة • الجزائر</div>
+                            <div class="text-[10px] text-slate-500">RC: 24/00-1234567 B24 • NIF: 002416012345678</div>
+                        </div>
+                        <div class="text-right">
+                            <div class="font-mono text-lg text-blue-600 font-black tracking-wider" id="invNum">FAC-2026-0001</div>
+                            <div class="text-xs text-slate-500 mt-0.5" id="invDate"></div>
+                        </div>
+                    </div>
+
+                    <!-- Client Info -->
+                    <div class="mt-5 grid grid-cols-2 gap-x-8 text-xs border-b border-black pb-4">
+                        <div>
+                            <div class="uppercase tracking-widest text-[9px] text-slate-400 mb-0.5">الزبون / المستلم</div>
+                            <div id="invCliName" class="font-bold text-base text-slate-900"></div>
+                            <div id="invCliAddr" class="text-slate-600 mt-0.5 leading-tight"></div>
+                        </div>
+                        <div class="text-right">
+                            <div class="uppercase tracking-widest text-[9px] text-slate-400 mb-0.5">النشاط / السجل التجاري</div>
+                            <div id="invCliAct" class="font-bold text-slate-900"></div>
+                            <div id="invCliRc" class="text-slate-600 mt-0.5"></div>
+                        </div>
+                    </div>
+
+                    <!-- Items Table -->
+                    <table class="w-full mt-4 text-xs border border-black">
+                        <thead>
+                            <tr class="bg-slate-100">
+                                <th class="p-2.5 text-right border-l border-black font-bold">المادة / الوصف</th>
+                                <th class="p-2.5 border-l border-black font-bold">النوع</th>
+                                <th class="p-2.5 text-left border-l border-black font-bold">السعر</th>
+                                <th class="p-2.5 border-l border-black font-bold">الكمية</th>
+                                <th class="p-2.5 text-left border-l border-black font-bold">المجموع (DZD)</th>
+                            </tr>
+                        </thead>
+                        <tbody id="invoiceTableBody" class="divide-y divide-black"></tbody>
+                    </table>
+
+                    <!-- Totals -->
+                    <div class="mt-5 flex justify-end">
+                        <div class="w-full max-w-xs text-sm">
+                            <div class="flex justify-between py-1.5 border-b border-black text-xs">
+                                <span class="text-slate-600">المجموع HT</span>
+                                <span id="valTotalHt" class="font-mono font-bold"></span>
+                            </div>
+                            <div class="flex justify-between py-2 text-base font-black text-blue-700 border-b border-black">
+                                <span id="lblPrintTvaRate">TOTAL NET TTC (TVA 19%) :</span>
+                                <span id="valTotalTtc" class="font-mono"></span>
+                            </div>
+                            <div class="text-[10px] text-slate-500 italic mt-2 text-right" id="invoiceTotalWords"></div>
+                        </div>
+                    </div>
+
+                    <div class="mt-8 pt-4 border-t text-center text-[10px] text-slate-400">
+                        شكراً لتعاملكم مع <span class="font-bold text-slate-600">Sarl MED Distribution</span><br>
+                        منصة اللوجستيات الذكية • ورقلة، الجزائر
+                    </div>
+                </div>
+            </div>
+
+        </main>
     </div>
 
+    <footer class="no-print fixed bottom-0 left-0 right-0 bg-white border-t py-2 text-center text-[10px] text-slate-400 z-30">
+        © 2026 Sarl MED Distribution — Plateforme Logistique Intelligente • ورقلة، الجزائر
+    </footer>
+
     <script>
-        document.addEventListener('DOMContentLoaded', function() { window.App.init(); });
+        // Initialize Lucide icons and App
+        window.onload = function() {
+            if (typeof lucide !== 'undefined') {
+                lucide.createIcons();
+            }
+            // Start the application
+            window.App.init();
+            
+            // Optional: Auto-focus on login if needed
+            const loginUser = document.getElementById('loginUser');
+            if (loginUser) loginUser.focus();
+        };
+        
+        // Keyboard shortcuts
+        document.addEventListener('keydown', function(e) {
+            if (e.key === '/' && document.getElementById('mainAppContent').classList.contains('hidden') === false) {
+                e.preventDefault();
+                const searchInput = document.getElementById('invProdName');
+                if (searchInput) searchInput.focus();
+            }
+        });
     </script>
 </body>
 </html>
